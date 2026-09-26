@@ -20,4 +20,5 @@ Este repositorio contiene el entorno completo de desarrollo y el motor principal
 3. Ejecuta la aplicación: `python app.py`
 4. La API de pruebas estará disponible en `http://127.0.0.1:5000`.
 
-> **Nota de Seguridad:** Este repositorio contiene código lógico de desarrollo. Las versiones limpias para integración con terceros se manejan en el repositorio `API_Validacion_Entregable`.
+> **Nota de Seguridad:** Este repositorio contiene código lógico de desarrollo. Las versiones limpias para integración con terceros se manejan en otro repositorio.
+> ** Debe realizar la solicitud previa, para popder acceder al repositorio de producción.
