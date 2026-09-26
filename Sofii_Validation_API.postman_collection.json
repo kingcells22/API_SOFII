@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "c62fb528-98de-4a94-bd47-f4e914de46b8",
+		"name": "Sofii API Validación de Certificados",
+		"description": "Colección para consultar el estado y la información de un certificado digital (.p12) emitido por FII.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1234567"
+	},
+	"item": [
+		{
+			"name": "Validar Certificado (.p12)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "certificado",
+							"type": "file",
+							"description": "Archivo del certificado digital con extensión .p12"
+						},
+						{
+							"key": "password",
+							"value": "CONTRASEÑA_AQUI",
+							"type": "text",
+							"description": "Contraseña del certificado digital"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/api/v1/certificado/validar",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"v1",
+						"certificado",
+						"validar"
+					]
+				},
+				"description": "Este endpoint recibe un archivo de certificado digital (.p12) junto con su contraseña. Retorna la información estructurada del certificado y su estado de validez actual, consultando en línea contra los servidores OCSP."
+			},
+			"response": [
+				{
+					"name": "Respuesta Exitosa (Válido)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "certificado",
+									"type": "file"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/api/v1/certificado/validar",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"v1",
+								"certificado",
+								"validar"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": {\n        \"email\": \"usuario@correo.com\",\n        \"issuer\": \"FIIIDT CA\",\n        \"not_valid_after\": \"2025-12-31 23:59:59\",\n        \"not_valid_before\": \"2024-01-01 00:00:00\",\n        \"organization\": \"FII\",\n        \"serial_full\": \"01:23:45:67:89:AB:CD:EF\",\n        \"serial_short\": \"CD:EF\",\n        \"status\": \"Válido (Validado en línea / OCSP)\",\n        \"subject\": \"Juan Perez\",\n        \"tipo_cert\": \"SHA256 RSA\",\n        \"title\": \"Gerente\"\n    }\n}"
+				},
+				{
+					"name": "Error de Contraseña o Archivo",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "certificado",
+									"type": "file"
+								},
+								{
+									"key": "password",
+									"value": "clave_incorrecta",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/api/v1/certificado/validar",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"v1",
+								"certificado",
+								"validar"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"error\": \"Error al leer el certificado. Verifique la contraseña o el archivo: Clave errada o formato de certificado no soportado.\"\n}"
+				}
+			]
+		}
+	]
+}
